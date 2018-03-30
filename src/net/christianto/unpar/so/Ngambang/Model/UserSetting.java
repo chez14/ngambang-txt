@@ -16,4 +16,6 @@ public class UserSetting {
     
     public static final String settingLocation = "user.json";
     public static String authorName;
+    
+    public static String[] startUpArgs;
 }

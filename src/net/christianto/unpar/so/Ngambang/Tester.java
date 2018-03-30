@@ -21,7 +21,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.christianto.unpar.so.Ngambang.Model.LoaderModel;
 import net.christianto.unpar.so.Ngambang.Model.UserSetting;
-import net.christianto.unpar.so.Ngambang.Windows.frmSplash;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 /**
@@ -102,6 +101,7 @@ public class Tester extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        UserSetting.startUpArgs = args;
         launch(args);
     }
     
