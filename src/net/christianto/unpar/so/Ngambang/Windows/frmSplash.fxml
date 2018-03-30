@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="70.0" prefWidth="460.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="net.christianto.unpar.so.Ngambang.Windows.frmSplash">
+   <children>
+      <ProgressIndicator fx:id="prgStatus" layoutX="22.0" layoutY="26.0" prefHeight="22.0" prefWidth="24.0" />
+      <Label fx:id="lblStatus" layoutX="58.0" layoutY="28.0" text="Starting Program... Pease wait..." />
+   </children>
+</AnchorPane>
