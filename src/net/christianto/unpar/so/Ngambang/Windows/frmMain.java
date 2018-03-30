@@ -16,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import net.christianto.unpar.so.Ngambang.Model.*;
 /**
  * FXML Controller class
@@ -48,7 +49,7 @@ public class frmMain implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }    
+    }
 
     @FXML
     private void mnuSave_Click(ActionEvent event) {
@@ -57,7 +58,9 @@ public class frmMain implements Initializable {
 
     @FXML
     private void mnuSaveAs_Click(ActionEvent event) {
-        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showOpenDialog(this.lblLines.getScene().getWindow());
     }
 
     @FXML
