@@ -28,19 +28,19 @@ public class frmSplash implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-    
+
     public void updateStatus(String status) {
         this.lblStatus.setText(status);
     }
-    
+
     public void updateStatus(double progress) {
         this.prgStatus.setProgress(progress);
     }
-    
+
     public void setIntermediate() {
         this.prgStatus.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
     }
-    
+
     public void updateStatus(String status, double progress) {
         this.updateStatus(status);
         this.updateStatus(progress);

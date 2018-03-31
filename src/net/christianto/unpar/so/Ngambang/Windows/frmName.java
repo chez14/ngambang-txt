@@ -37,26 +37,26 @@ public class frmName implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     @FXML
     private void btnSave_Click(ActionEvent event) {
-        if(txtName.getText().isEmpty()) {
-            (new Alert(Alert.AlertType.WARNING, "There's no name here, have you even type?!")).showAndWait();
+        if (txtName.getText().isEmpty()) {
+            (new Alert(Alert.AlertType.WARNING,
+                    "There's no name here, have you even type?!")).showAndWait();
             return;
         }
-        
-        (new Alert(Alert.AlertType.CONFIRMATION, "You sure to choose\n" + txtName.getText() + "\nas your author name?"))
-            .showAndWait()
-            .ifPresent((resp)->{
-                if(resp == ButtonType.OK) {
-                    UserSetting.authorName = txtName.getText();
-                    ((Stage)txtName.getScene().getWindow()).close();
-                }
-            });
-        
-        
+
+        (new Alert(Alert.AlertType.CONFIRMATION, "You sure to choose\n"
+                + txtName.getText() + "\nas your author name?"))
+                .showAndWait()
+                .ifPresent((resp) -> {
+                    if (resp == ButtonType.OK) {
+                        UserSetting.authorName = txtName.getText();
+                        ((Stage) txtName.getScene().getWindow()).close();
+                    }
+                });
     }
-    
+
 }

@@ -85,6 +85,12 @@ public class frmMain implements Initializable {
         });
     }
 
+    /**
+     * File loader, will help me to load file in a bunch of places. Will prompt
+     * automatically if file are not able be loaded or there's trouble with it.
+     *
+     * @param location of the file.
+     */
     private void loadFile(String location) {
         TextDocument old_td = td;
         td = new TextDocument(location);
@@ -92,16 +98,27 @@ public class frmMain implements Initializable {
             try {
                 td.load();
             } catch (IOException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                (new Alert(Alert.AlertType.ERROR, "Error when proccessing the file.\nSystem will now be closed.")).showAndWait();
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.SEVERE, null, ex);
+                (new Alert(Alert.AlertType.ERROR,
+                        "Error when proccessing the file.\n"
+                        + "System will now be closed.")).showAndWait();
                 Platform.exit();
             } catch (ParseException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                (new Alert(Alert.AlertType.WARNING, "Error when proccessing the file.\n"
-                        + "We couldn't read the author list, proceeding to open it anyway.")).showAndWait();
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.SEVERE, null, ex);
+                (new Alert(Alert.AlertType.WARNING,
+                        "Error when proccessing the file.\n"
+                        + "We couldn't read the author list,"
+                        + "proceeding to open it anyway.")).showAndWait();
             } catch (InvalidDocFormatException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                (new Alert(Alert.AlertType.ERROR, "Error when proccessing the file.\nThe file you selected are not compatible with this app.")).showAndWait();
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.SEVERE, null, ex);
+                (new Alert(Alert.AlertType.ERROR,
+                        "Error when proccessing the file.\n"
+                        + "The file you selected are not compatible"
+                        + "with this app."))
+                        .showAndWait();
                 td = old_td;
             }
         });
@@ -110,7 +127,8 @@ public class frmMain implements Initializable {
         try {
             saver.join();
         } catch (InterruptedException ex) {
-            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmMain.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
 
         refreshAuthor();
@@ -122,10 +140,17 @@ public class frmMain implements Initializable {
 
     }
 
+    /**
+     * Requests the close procedure. Will prompt for save if it's unsaved.
+     *
+     * @return false on it's not ok to close, true if it's ok.
+     */
     private boolean closeRequest() {
         System.out.println("Close Request!");
         if (td.document != null && !td.document.equals(txtContent.getText())) {
-            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to close this document\nwithout saving?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+            Alert a = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Are you sure to close this document\nwithout saving?",
+                    ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
 
             a.showAndWait().ifPresent(resp -> {
                 if (resp == ButtonType.YES) {
@@ -151,6 +176,11 @@ public class frmMain implements Initializable {
         return false;
     }
 
+    /**
+     * Will help build us the title bar
+     *
+     * @return
+     */
     private String buildTitle() {
         String filename = "Untitled.txtx";
         if (location != null && !location.isEmpty()) {
@@ -163,6 +193,10 @@ public class frmMain implements Initializable {
         return "Ngambang v1.0 - " + filename;
     }
 
+    /**
+     * Refresh the author list. This will always make sure that the author list
+     * are the newest and fresh from the file.
+     */
     private void refreshAuthor() {
         Platform.runLater(() -> {
             lstAuthors.getItems().clear();
@@ -180,7 +214,8 @@ public class frmMain implements Initializable {
             try {
                 td.save(location);
             } catch (IOException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         });
         Platform.runLater(() -> prgBar.setVisible(true));
@@ -188,7 +223,8 @@ public class frmMain implements Initializable {
         try {
             saver.join();
         } catch (InterruptedException ex) {
-            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmMain.class.getName())
+                    .log(Level.SEVERE, null, ex);
         }
         Platform.runLater(() -> prgBar.setVisible(false));
 
@@ -205,9 +241,11 @@ public class frmMain implements Initializable {
         FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("Txtx File", "*.txtx");
         fileChooser.getExtensionFilters().add(ex);
 
-        location = fileChooser.showSaveDialog(this.lblLines.getScene().getWindow()).getAbsolutePath();
+        location = fileChooser.showSaveDialog(this.lblLines.getScene()
+                .getWindow()).getAbsolutePath();
         if (location == null || location.isEmpty()) {
-            (new Alert(Alert.AlertType.ERROR, "Unable to save file. Location not set.")).show();
+            (new Alert(Alert.AlertType.ERROR,
+                    "Unable to save file. Location not set.")).show();
             return;
         }
         if (!location.endsWith(".txtx")) {
@@ -228,20 +266,31 @@ public class frmMain implements Initializable {
         FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("Txtx File", "*.txtx");
         fileChooser.getExtensionFilters().add(ex);
 
-        location = fileChooser.showOpenDialog(this.lblLines.getScene().getWindow()).getAbsolutePath();
+        location = fileChooser.showOpenDialog(this.lblLines.getScene()
+                .getWindow()).getAbsolutePath();
         if (location == null || location.isEmpty()) {
-            (new Alert(Alert.AlertType.ERROR, "Unable to open file. Location not set.")).show();
+            (new Alert(Alert.AlertType.ERROR,
+                    "Unable to open file. Location not set.")).show();
             return;
         }
         loadFile(location);
     }
 
-    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+    private ScheduledExecutorService executor = Executors
+            .newSingleThreadScheduledExecutor();
 
+    /**
+     * This method starts the watch event. The watch task are includes auto
+     * save, and auto counter for word and lines.
+     *
+     * This will run another thread process to make sure that for a really long
+     * line didn't blocks the main thread.
+     */
     private void watch() {
         Runnable autoSave = () -> {
             if (location == null || location.isEmpty()) {
-                System.out.println("[DAEMON] Autosave is running, but file location is unset. Ignoring...");
+                System.out.println("[DAEMON] Autosave is running,"
+                        + "but file location is unset. Ignoring...");
                 return;
             }
             Platform.runLater(() -> {
@@ -252,7 +301,8 @@ public class frmMain implements Initializable {
                 System.out.println("[DAEMON] Autosave runned");
             } catch (IOException ex) {
                 System.out.println("[DAEMON] Autosave run failed");
-                Logger.getLogger(frmMain.class.getName()).log(Level.WARNING, null, ex);
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.WARNING, null, ex);
             }
             Platform.runLater(() -> {
                 pnlAutosave.setVisible(false);
@@ -268,7 +318,8 @@ public class frmMain implements Initializable {
                     Platform.runLater(() -> {
                         if (!this.changed) {
                             changed = true;
-                            ((Stage) txtContent.getScene().getWindow()).setTitle(buildTitle());
+                            ((Stage) txtContent.getScene().getWindow())
+                                    .setTitle(buildTitle());
                         }
                         lblLines.setText(Integer.toString(lines) + " lines");
                         lblWords.setText(Integer.toString(words) + " words");
@@ -279,7 +330,8 @@ public class frmMain implements Initializable {
             try {
                 counter.join();
             } catch (InterruptedException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmMain.class.getName())
+                        .log(Level.SEVERE, null, ex);
             }
         });
         // run autosave every 5 minutes
@@ -289,7 +341,8 @@ public class frmMain implements Initializable {
     @FXML
     private void mnuAbout_Click(ActionEvent event) throws IOException {
         Stage stgAbout = new Stage();
-        Scene scnAbout = new Scene(FXMLLoader.load(getClass().getResource("frmAbout.fxml")));
+        Scene scnAbout = new Scene(FXMLLoader.load(getClass()
+                .getResource("frmAbout.fxml")));
         stgAbout.setScene(scnAbout);
         stgAbout.initModality(Modality.WINDOW_MODAL);
         stgAbout.initOwner(txtContent.getScene().getWindow());
