@@ -19,12 +19,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -59,6 +61,12 @@ public class frmMain implements Initializable {
 
     private String location;
     private boolean changed;
+    @FXML
+    private Label lblChars;
+    @FXML
+    private Accordion acrRightPane;
+    @FXML
+    private TitledPane tlpStats;
 
     /**
      * Initializes the controller class.
@@ -82,6 +90,7 @@ public class frmMain implements Initializable {
                 }
                 Platform.exit();
             });
+            acrRightPane.setExpandedPane(tlpStats);
         });
     }
 
@@ -313,8 +322,8 @@ public class frmMain implements Initializable {
             Thread counter = new Thread(() -> {
                 synchronized (txtContent) {
                     String text = txtContent.getText().trim();
-                    int words = text.split("\\s").length;
-                    int lines = text.split("\\n").length;
+                    int words = text.isEmpty()?0:text.split("\\s").length;
+                    int lines = text.isEmpty()?0:text.split("\\n").length;
                     Platform.runLater(() -> {
                         if (!this.changed) {
                             changed = true;
@@ -323,6 +332,8 @@ public class frmMain implements Initializable {
                         }
                         lblLines.setText(Integer.toString(lines) + " lines");
                         lblWords.setText(Integer.toString(words) + " words");
+                        lblChars.setText(Integer.toString(txtContent.getText()
+                                .length()) + " chars");
                     });
                 }
             });

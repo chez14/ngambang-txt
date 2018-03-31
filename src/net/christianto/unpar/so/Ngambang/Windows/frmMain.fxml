@@ -36,16 +36,18 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Accordion layoutX="468.0" layoutY="29.0" prefHeight="371.0" prefWidth="149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
+      <Accordion fx:id="acrRightPane" layoutX="468.0" layoutY="29.0" prefHeight="371.0" prefWidth="149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="29.0">
         <panes>
-          <TitledPane animated="false" text="Document Stats">
+          <TitledPane fx:id="tlpStats" animated="false" text="Document Stats">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Words:" />
-                        <Label fx:id="lblWords" layoutX="14.0" layoutY="30.0" text="Counting..." />
-                        <Label layoutX="14.0" layoutY="59.0" text="Lines:" />
-                        <Label fx:id="lblLines" layoutX="14.0" layoutY="75.0" text="Counting..." />
+                        <Label layoutX="14.0" layoutY="46.0" text="Words:" />
+                        <Label fx:id="lblWords" layoutX="14.0" layoutY="62.0" text="Counting..." />
+                        <Label layoutX="14.0" layoutY="88.0" text="Lines:" />
+                        <Label fx:id="lblLines" layoutX="14.0" layoutY="104.0" text="Counting..." />
+                        <Label layoutX="14.0" layoutY="5.0" text="Chars:" />
+                        <Label fx:id="lblChars" layoutX="14.0" layoutY="21.0" text="Counting..." />
                      </children>
                   </AnchorPane>
                </content></TitledPane>
