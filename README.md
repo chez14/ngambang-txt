@@ -1,6 +1,8 @@
 # Ngambang
 
-<center>![Screenshot](_assets/screenshot.png)</center>
+<p align="center"> 
+  <img src="https://github.com/chez14/ngambang-txt/raw/master/_assets/screenshot.png"/>
+</p>
 
 Ngambang is a dummy Text Editor that saves `txt` file, along with a bunch of it's authors name. The file structure is highly inspired from Microsoft Office's `.*x` files. Microsoft uses `zip` file structure to save and maintains the document structure in a file. Anything, like Picture, Document Text, even the smallest detail like Authors and such more are saved in a file, inside those `.*x` files.
 
