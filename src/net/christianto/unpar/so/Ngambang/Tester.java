@@ -53,16 +53,7 @@ public class Tester extends Application {
                 //checking user settings:
                 lm.updateStatus("Trying to read the user setting.");
                 try {
-                    BufferedReader setting = new BufferedReader(new FileReader(UserSetting.settingLocation));
-                    String set = "";
-                    String temp;
-                    while((temp = setting.readLine()) != null) {
-                        set += temp;
-                    }
-                    
-                    JSONParser a = new JSONParser();
-                    JSONObject settingObj = (JSONObject)a.parse(set);
-                    UserSetting.authorName = (String)settingObj.get("name");
+                    UserSetting.load();
                 } catch(IOException e) {
                     // setting not found
                     lm.updateStatus("Fail to read user setting,\nprocceding with asking the user's name.");
@@ -82,6 +73,11 @@ public class Tester extends Application {
                         stgUserName.initModality(Modality.WINDOW_MODAL);
                         stgUserName.initStyle(StageStyle.UNDECORATED);
                         stgUserName.showAndWait();
+                        try {
+                            UserSetting.save();
+                        } catch (IOException ex) {
+                            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     });
                 }
                 return null;

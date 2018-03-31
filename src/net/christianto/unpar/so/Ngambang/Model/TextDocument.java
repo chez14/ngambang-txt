@@ -21,8 +21,8 @@ import java.util.zip.ZipOutputStream;
  */
 public class TextDocument {
     ArrayList<String> authors;
-    String document = "";
-    String location;
+    public String document = "";
+    public String location;
     
     final String f_docInfo = "docinfo.json";
     final String f_document = "document.txt";
