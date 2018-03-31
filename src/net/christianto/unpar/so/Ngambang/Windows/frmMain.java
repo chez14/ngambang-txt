@@ -24,12 +24,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import net.christianto.unpar.so.Ngambang.Exception.InvalidDocFormatException;
 import net.christianto.unpar.so.Ngambang.Model.*;
 import org.json.simple.parser.ParseException;
 /**
  * FXML Controller class
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class frmMain implements Initializable {
 
@@ -68,6 +69,7 @@ public class frmMain implements Initializable {
     }
     
     private void loadFile(String location){
+        TextDocument old_td = td;
         td = new TextDocument(location);
         try {
             td.load();
@@ -79,9 +81,13 @@ public class frmMain implements Initializable {
             Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
             (new Alert(Alert.AlertType.WARNING, "Error when proccessing the file.\n" +
                     "We couldn't read the author list, proceeding to open it anyway.")).showAndWait();
-
+        } catch (InvalidDocFormatException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            (new Alert(Alert.AlertType.ERROR, "Error when proccessing the file.\nThe file you selected are not compatible with this app.")).showAndWait();
+            td = old_td;
         }
         refreshAuthor();
+        txtContent.setText(td.document);
     }
     
     private void refreshAuthor() {
@@ -138,6 +144,21 @@ public class frmMain implements Initializable {
             return;
         }
         System.exit(0);
+    }
+
+    @FXML
+    private void mnuOpen_Click(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Ngambang File");
+        FileChooser.ExtensionFilter ex = new FileChooser.ExtensionFilter("Txtx File", "*.txtx");
+        fileChooser.getExtensionFilters().add(ex);
+        
+        location = fileChooser.showOpenDialog(this.lblLines.getScene().getWindow()).getAbsolutePath();
+        if(location == null || location.isEmpty()) {
+            (new Alert(Alert.AlertType.ERROR, "Unable to open file. Location not set.")).show();
+            return;
+        }
+        loadFile(location);
     }
     
 }

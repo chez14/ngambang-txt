@@ -20,7 +20,7 @@ import net.christianto.unpar.so.Ngambang.Windows.frmSplash;
 
 /**
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class LoaderModel {
     Stage stage;

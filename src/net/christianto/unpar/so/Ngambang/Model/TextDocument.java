@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import net.christianto.unpar.so.Ngambang.Exception.InvalidDocFormatException;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class TextDocument {
     public ArrayList<String> authors;
@@ -38,9 +39,12 @@ public class TextDocument {
         this.location = "";
     }
     
-    public void load(String location) throws IOException, ParseException{
+    public void load(String location) throws IOException, ParseException, InvalidDocFormatException{
         ZipFile zif = new ZipFile(location);
         this.location = location;
+        if(zif.getEntry(f_docInfo) == null || zif.getEntry(f_document) == null) {
+            throw new InvalidDocFormatException("The file required are not available.");
+        }
         BufferedReader bDocInfo = new BufferedReader(
                 new InputStreamReader(zif.getInputStream(zif.getEntry(f_docInfo)))
         );
@@ -91,7 +95,7 @@ public class TextDocument {
         this.save(location);
     }
     
-    public void load() throws IOException, ParseException{
+    public void load() throws IOException, ParseException, InvalidDocFormatException{
         this.load(location);
     }
 }

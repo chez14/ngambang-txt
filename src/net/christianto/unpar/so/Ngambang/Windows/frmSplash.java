@@ -15,7 +15,7 @@ import javafx.scene.control.ProgressIndicator;
 /**
  * FXML Controller class
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class frmSplash implements Initializable {
 

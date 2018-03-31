@@ -17,7 +17,7 @@ import org.json.simple.parser.ParseException;
 
 /**
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class UserSetting {
     private UserSetting() {

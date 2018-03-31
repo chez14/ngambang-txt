@@ -21,7 +21,7 @@ import net.christianto.unpar.so.Ngambang.Model.LoaderModel;
 import net.christianto.unpar.so.Ngambang.Model.UserSetting;
 /**
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class Tester extends Application {
     static LoaderModel lm;

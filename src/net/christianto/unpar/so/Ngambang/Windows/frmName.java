@@ -21,7 +21,7 @@ import net.christianto.unpar.so.Ngambang.Model.UserSetting;
 /**
  * FXML Controller class
  *
- * @author hayashi
+ * @author Gunawan Christianto
  */
 public class frmName implements Initializable {
 
