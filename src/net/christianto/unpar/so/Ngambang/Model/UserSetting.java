@@ -36,6 +36,8 @@ public class UserSetting {
         
         FileOutputStream fox = new FileOutputStream(new File(settingLocation));
         fox.write(setting.toJSONString().getBytes());
+        fox.flush();
+        fox.close();
     }
     
     public static void load() throws FileNotFoundException, ParseException, IOException {
@@ -49,5 +51,6 @@ public class UserSetting {
         JSONParser a = new JSONParser();
         JSONObject settingObj = (JSONObject)a.parse(set);
         UserSetting.authorName = (String)settingObj.get("name");
+        setting.close();
     }
 }

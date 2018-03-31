@@ -21,3 +21,6 @@ nbproject/*
 *.swp
 *.DS_Store
 *.lock
+
+#app related settings
+user.json
