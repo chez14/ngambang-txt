@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -50,7 +49,7 @@ public class UserSetting {
 
         JSONParser a = new JSONParser();
         JSONObject settingObj = (JSONObject)a.parse(set);
-        UserSetting.authorName = (String)settingObj.get("name");
+        authorName = (String)settingObj.get("author");
         setting.close();
     }
 }

@@ -5,8 +5,6 @@
  */
 package net.christianto.unpar.so.Ngambang;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,8 +19,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import net.christianto.unpar.so.Ngambang.Model.LoaderModel;
 import net.christianto.unpar.so.Ngambang.Model.UserSetting;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 /**
  *
  * @author hayashi

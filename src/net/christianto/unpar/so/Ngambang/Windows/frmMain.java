@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import net.christianto.unpar.so.Ngambang.Model.*;
+import org.json.simple.parser.ParseException;
 /**
  * FXML Controller class
  *
@@ -59,16 +62,35 @@ public class frmMain implements Initializable {
             td = new TextDocument();
         } else {
             this.location = UserSetting.startUpArgs[0];
-            td = new TextDocument(this.location);
-            try {
-                td.load();
-            } catch (IOException ex) {
-                Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-                (new Alert(Alert.AlertType.ERROR, "Error when proccessing the file.\nSystem will now be closed.")).showAndWait();
-                System.exit(-2);
-            }
+            loadFile(location);
         }
+       
     }
+    
+    private void loadFile(String location){
+        td = new TextDocument(location);
+        try {
+            td.load();
+        } catch (IOException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            (new Alert(Alert.AlertType.ERROR, "Error when proccessing the file.\nSystem will now be closed.")).showAndWait();
+            System.exit(-2);
+        } catch (ParseException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+            (new Alert(Alert.AlertType.WARNING, "Error when proccessing the file.\n" +
+                    "We couldn't read the author list, proceeding to open it anyway.")).showAndWait();
+
+        }
+        refreshAuthor();
+    }
+    
+    private void refreshAuthor() {
+        Platform.runLater(()->{
+            lstAuthors.getItems().clear();
+            lstAuthors.getItems().addAll(td.authors);
+        });
+    }
+            
 
     @FXML
     private void mnuSave_Click(ActionEvent event) {
@@ -81,6 +103,7 @@ public class frmMain implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
+        refreshAuthor();
     }
 
     @FXML
@@ -94,6 +117,9 @@ public class frmMain implements Initializable {
         if(location == null || location.isEmpty()) {
             (new Alert(Alert.AlertType.ERROR, "Unable to save file. Location not set.")).show();
             return;
+        }
+        if(!location.endsWith(".txtx")) {
+            location += ".txtx";
         }
         mnuSave_Click(event);
     }

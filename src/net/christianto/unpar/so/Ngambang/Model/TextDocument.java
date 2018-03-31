@@ -14,13 +14,16 @@ import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author hayashi
  */
 public class TextDocument {
-    ArrayList<String> authors;
+    public ArrayList<String> authors;
     public String document = "";
     public String location;
     
@@ -35,7 +38,7 @@ public class TextDocument {
         this.location = "";
     }
     
-    public void load(String location) throws IOException{
+    public void load(String location) throws IOException, ParseException{
         ZipFile zif = new ZipFile(location);
         this.location = location;
         BufferedReader bDocInfo = new BufferedReader(
@@ -47,10 +50,8 @@ public class TextDocument {
         
         //load bunch of authors
         authors = new ArrayList<>();
-        bDocInfo.lines().forEach(author -> {
-            authors.add(author.trim());
-        });
-        
+        JSONArray author = (JSONArray)(new JSONParser()).parse(bDocInfo);
+        this.authors.addAll(author);
         //load data
         bDocument.lines().forEach(data->{
             this.document += data;
@@ -66,15 +67,15 @@ public class TextDocument {
         //writing document first
         ZipEntry docInfo = new ZipEntry(f_docInfo);
         zout.putNextEntry(docInfo);
+        if(authors == null){
+            authors = new ArrayList<>();
+        }
         if(!authors.contains(UserSetting.authorName)){
             authors.add(UserSetting.authorName);
         }
-        authors.forEach(author->{
-            try {
-                zout.write((authors + "\n").getBytes());
-            } catch (IOException ex) {
-            }
-        });
+        JSONArray authors = new JSONArray();
+        authors.addAll(this.authors);
+        zout.write(authors.toJSONString().getBytes());
         zout.closeEntry();
         
         ZipEntry docu = new ZipEntry(f_document);
@@ -90,7 +91,7 @@ public class TextDocument {
         this.save(location);
     }
     
-    public void load() throws IOException{
+    public void load() throws IOException, ParseException{
         this.load(location);
     }
 }
