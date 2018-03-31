@@ -16,16 +16,18 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import net.christianto.unpar.so.Ngambang.Exception.InvalidDocFormatException;
 import net.christianto.unpar.so.Ngambang.Model.*;
@@ -46,8 +48,6 @@ public class frmMain implements Initializable {
     private ProgressBar prgBar;
     @FXML
     private TextArea txtContent;
-    @FXML
-    private MenuItem mnuAbout_Click;
     @FXML
     private Label lblWords;
     @FXML
@@ -284,5 +284,15 @@ public class frmMain implements Initializable {
         });
         // run autosave every 5 minutes
         executor.scheduleAtFixedRate(autoSave, 0, 5, TimeUnit.MINUTES);
+    }
+
+    @FXML
+    private void mnuAbout_Click(ActionEvent event) throws IOException {
+        Stage stgAbout = new Stage();
+        Scene scnAbout = new Scene(FXMLLoader.load(getClass().getResource("frmAbout.fxml")));
+        stgAbout.setScene(scnAbout);
+        stgAbout.initModality(Modality.WINDOW_MODAL);
+        stgAbout.initOwner(txtContent.getScene().getWindow());
+        stgAbout.showAndWait();
     }
 }

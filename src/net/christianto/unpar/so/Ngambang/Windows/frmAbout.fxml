@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="331.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+   <children>
+      <Label layoutX="33.0" layoutY="33.0" text="Ngambang">
+         <font>
+            <Font name="System Bold" size="39.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="83.0" text="v1.0" />
+      <Label layoutX="36.0" layoutY="138.0" text="Created by:&#10;Gunawan Christianto&#10;2016730011&#10;&#10;License:&#10;MIT&#10;&#10;Source Code:&#10;https://github.com/chez14/ngambang-txt" />
+   </children>
+</AnchorPane>
