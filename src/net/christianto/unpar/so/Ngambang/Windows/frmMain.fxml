@@ -77,7 +77,7 @@
                   </Label>
                </children>
             </HBox>
-            <ProgressBar fx:id="prgBar" prefWidth="200.0">
+            <ProgressBar fx:id="prgBar" prefWidth="200.0" visible="false">
                <HBox.margin>
                   <Insets left="6.0" top="5.0" />
                </HBox.margin>
